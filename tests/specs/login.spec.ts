@@ -43,17 +43,15 @@ test.describe('Authentication - Login', () => {
       });
     });
   });
-test('TC04 - Login fail with empty credentials', async ({ loginPage }) => {
+  test('TC04 - Login fail with empty credentials', async ({ loginPage }) => {
+    await test.step('Click login without entering credentials', async () => {
+      await loginPage.btn_login.click();
+    });
 
-  await test.step('Click login without entering credentials', async () => {
-    await loginPage.btn_login.click();
+    await test.step('Verify validation message', async () => {
+      await expect(loginPage.error_incorrectLogin).toBeVisible();
+    });
   });
-
-  await test.step('Verify validation message', async () => {
-    await expect(loginPage.error_incorrectLogin).toBeVisible();
-  });
-
-});
   test('TC03 - Login fail with wrong password', async ({ loginPage }) => {
     await test.step('Enter invalid credentials', async () => {
       await loginPage.login('wrongUser', 'wrongPassword');
@@ -89,8 +87,13 @@ test.describe('Authorization - Role Permission', () => {
     });
 
     await test.step('Verify admin page accessible', async () => {
-      await expect(page).toHaveURL(`${process.env.TB_BASE_URL}/admin/dashboard`);
+      await expect(page).toHaveURL(
+        `${process.env.TB_BASE_URL}/admin/dashboard`,
+      );
     });
+  });
+  test.afterEach(async ({ homePage }) => {
+    await homePage.close();
   });
 
   test('TC06 - User cannot access admin page', async ({ loginPage, page }) => {
@@ -106,7 +109,12 @@ test.describe('Authorization - Role Permission', () => {
     });
 
     await test.step('Verify access denied or redirect', async () => {
-      await expect(page).not.toHaveURL(`${process.env.TB_BASE_URL}/admin/dashboard`);
+      await expect(page).not.toHaveURL(
+        `${process.env.TB_BASE_URL}/admin/dashboard`,
+      );
     });
+  });
+  test.afterEach(async ({ homePage }) => {
+    await homePage.close();
   });
 });

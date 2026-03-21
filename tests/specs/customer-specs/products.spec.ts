@@ -41,7 +41,7 @@ test.describe('Product Filter', () => {
         });
     });
   });
-  test.afterAll(async ({ homePage }) => {
+  test.afterEach(async ({ homePage }) => {
     await homePage.close();
   });
 });
