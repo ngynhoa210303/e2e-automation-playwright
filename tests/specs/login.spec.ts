@@ -3,20 +3,18 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const BASE_URL = process.env.TB_BASE_URL;
-
 const accounts = [
   {
     role: 'admin',
     username: process.env.TB_ADMIN_USERNAME!,
     password: process.env.TB_ADMIN_PASSWORD!,
-    url: '/admin/dashboard',
+    url: `${process.env.TB_BASE_URL}/admin/dashboard`,
   },
   {
     role: 'user',
     username: process.env.TB_USER_USERNAME!,
     password: process.env.TB_USER_PASSWORD!,
-    url: '/home',
+    url: `${process.env.TB_BASE_URL}/home`,
   },
 ];
 
@@ -36,12 +34,12 @@ test.describe('Authentication - Login', () => {
       });
 
       await test.step('Verify redirect after login', async () => {
-        await expect(page).toHaveURL(`${BASE_URL}${url}`);
+        await expect(page).toHaveURL(`${url}`);
       });
 
       await test.step('Logout', async () => {
         await homePage.logout();
-        await expect(page).toHaveURL(`${BASE_URL}/login`);
+        await expect(page).toHaveURL(`${process.env.TB_BASE_URL}/login`);
       });
     });
   });
@@ -87,11 +85,11 @@ test.describe('Authorization - Role Permission', () => {
     });
 
     await test.step('Access admin dashboard', async () => {
-      await page.goto(`${BASE_URL}/admin/dashboard`);
+      await page.goto(`${process.env.TB_BASE_URL}/admin/dashboard`);
     });
 
     await test.step('Verify admin page accessible', async () => {
-      await expect(page).toHaveURL(`${BASE_URL}/admin/dashboard`);
+      await expect(page).toHaveURL(`${process.env.TB_BASE_URL}/admin/dashboard`);
     });
   });
 
@@ -104,11 +102,11 @@ test.describe('Authorization - Role Permission', () => {
     });
 
     await test.step('Try accessing admin page', async () => {
-      await page.goto(`${BASE_URL}/admin/dashboard`);
+      await page.goto(`${process.env.TB_BASE_URL}/admin/dashboard`);
     });
 
     await test.step('Verify access denied or redirect', async () => {
-      await expect(page).not.toHaveURL(`${BASE_URL}/admin/dashboard`);
+      await expect(page).not.toHaveURL(`${process.env.TB_BASE_URL}/admin/dashboard`);
     });
   });
 });
