@@ -7,14 +7,13 @@ import dotenv from 'dotenv';
 import ChangePassword from './components/changePasswordPopup';
 dotenv.config();
 
-
 export abstract class BasePage {
   public navBar: NavBar;
   public cookiePopup: AllowCookiesPopup;
   public filter: Filter;
   public search: Search;
   public changePassword: ChangePassword;
-  public baseUrl = process.env.BASE_URL || 'https://alpha.auroralive.com';
+  public baseUrl = process.env.TB_BASE_URL || 'https://mrbip.vn';
 
   constructor(readonly page: Page) {
     this.navBar = new NavBar(this.page);

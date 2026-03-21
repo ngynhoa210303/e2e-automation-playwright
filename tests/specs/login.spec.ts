@@ -1,43 +1,114 @@
 import { test, expect } from '../pageObjects/pageFixture';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
-test.describe('Test Login page', () => {
-  test.beforeEach(async ({ homePage }) => {
-    await homePage.open();
-    await homePage.cookiePopup.allow_cookie();
-    await homePage.menu.click();
-    await homePage.menu_login.click();
+const BASE_URL = process.env.TB_BASE_URL;
+
+const accounts = [
+  {
+    role: 'admin',
+    username: process.env.TB_ADMIN_USERNAME!,
+    password: process.env.TB_ADMIN_PASSWORD!,
+    url: '/admin/dashboard',
+  },
+  {
+    role: 'user',
+    username: process.env.TB_USER_USERNAME!,
+    password: process.env.TB_USER_PASSWORD!,
+    url: '/home',
+  },
+];
+
+test.describe('Authentication - Login', () => {
+  test.beforeEach(async ({ loginPage }) => {
+    await loginPage.open();
   });
 
-  test('Test Login button disable if user not input email and password', {tag: '@regression'}, async ({ homePage, loginPage }) => {
-    await test.step('Check Login button disable', async () => {
-      await expect(loginPage.btn_signIn).toBeDisabled();
-    });
+  accounts.forEach(({ role, username, password, url }, index) => {
+    test(`TC0${index + 1}  - Login success with ${role}`, async ({
+      loginPage,
+      homePage,
+      page,
+    }) => {
+      await test.step(`Login with ${role}`, async () => {
+        await loginPage.login(username, password);
+      });
 
-    await test.step('Login with invalid email', async () => {
-      await loginPage.login('invalidEmail@manage', String(process.env.AL_TEST_ACCOUNT_PASSWORD));
-    });
-    await test.step('Check error invalid email', async () => {
-      await expect(loginPage.error_incorrectEmail).toBeVisible();
-    });
+      await test.step('Verify redirect after login', async () => {
+        await expect(page).toHaveURL(`${BASE_URL}${url}`);
+      });
 
-    await test.step('Login with invalid password', async () => {
-      await loginPage.login(String(process.env.AL_TEST_ACCOUNT_EMAIL), 'invalidPassword');
-    });
-    await test.step('Check error incorrect password display', async () => {
-      await expect(loginPage.error_incorrectPassword).toBeVisible();
-    });
-
-    await test.step('Login with valid email and password', async () => {
-      await loginPage.login(String(process.env.AL_TEST_ACCOUNT_EMAIL), String(process.env.AL_TEST_ACCOUNT_PASSWORD));
-    });
-    await test.step('Check login success notification display', async () => {
-      await expect(loginPage.noti_login_success).toBeVisible();
+      await test.step('Logout', async () => {
+        await homePage.logout();
+        await expect(page).toHaveURL(`${BASE_URL}/login`);
+      });
     });
   });
+test('TC04 - Login fail with empty credentials', async ({ loginPage }) => {
 
+  await test.step('Click login without entering credentials', async () => {
+    await loginPage.btn_login.click();
+  });
+
+  await test.step('Verify validation message', async () => {
+    await expect(loginPage.error_incorrectLogin).toBeVisible();
+  });
+
+});
+  test('TC03 - Login fail with wrong password', async ({ loginPage }) => {
+    await test.step('Enter invalid credentials', async () => {
+      await loginPage.login('wrongUser', 'wrongPassword');
+    });
+
+    await test.step('Verify error message', async () => {
+      await expect(loginPage.error_incorrectLogin).toBeVisible();
+    });
+  });
   test.afterEach(async ({ homePage }) => {
     await homePage.close();
+  });
+});
+
+test.describe('Authorization - Role Permission', () => {
+  test.beforeEach(async ({ loginPage }) => {
+    await loginPage.open();
+  });
+
+  test('TC05 - Admin can access admin dashboard', async ({
+    loginPage,
+    page,
+  }) => {
+    await test.step('Login with admin account', async () => {
+      await loginPage.login(
+        String(process.env.TB_ADMIN_USERNAME),
+        String(process.env.TB_ADMIN_PASSWORD),
+      );
+    });
+
+    await test.step('Access admin dashboard', async () => {
+      await page.goto(`${BASE_URL}/admin/dashboard`);
+    });
+
+    await test.step('Verify admin page accessible', async () => {
+      await expect(page).toHaveURL(`${BASE_URL}/admin/dashboard`);
+    });
+  });
+
+  test('TC06 - User cannot access admin page', async ({ loginPage, page }) => {
+    await test.step('Login with user account', async () => {
+      await loginPage.login(
+        process.env.TB_USER_USERNAME!,
+        process.env.TB_USER_PASSWORD!,
+      );
+    });
+
+    await test.step('Try accessing admin page', async () => {
+      await page.goto(`${BASE_URL}/admin/dashboard`);
+    });
+
+    await test.step('Verify access denied or redirect', async () => {
+      await expect(page).not.toHaveURL(`${BASE_URL}/admin/dashboard`);
+    });
   });
 });

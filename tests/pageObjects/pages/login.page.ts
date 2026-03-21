@@ -1,28 +1,23 @@
 import { BasePage } from '../base.page';
 
 export default class LoginPage extends BasePage {
-  readonly txt_email = this.page.locator("input[name='email']");
-  readonly txt_password = this.page.locator("input[name='password']");
-  readonly btn_signIn = this.page.locator("button[type='submit']");
-  readonly noti_login_success = this.page.locator(
-    '//div[contains(@class, "toast--success")]//div[text()="Logged in successfully"]',
-  );
-  readonly error_incorrectEmail = this.page.locator(
-    "//input[@name='email']/parent::div/following-sibling::p[text()='You have entered an incorrect email or password.']"
-  );
-  readonly error_incorrectPassword = this.page.locator(
-    "//input[@name='password']/parent::div/following-sibling::p[text()='You have entered an incorrect password.']"
+  readonly txt_username= this.page.locator("//input[@type='text']");
+  readonly txt_password = this.page.locator("//input[@type='password']");
+  readonly btn_login = this.page.locator("button[type='submit']");
+  readonly error_incorrectLogin = this.page.locator(
+    "(//div[contains(@class,'w-full max-w-md')]//div)[2]"
   );
 
-  async login(email: string, password: string) {
+  async login(username: string, password: string) {
     await Promise.all([
-      await this.txt_email.fill(email),
+      await this.txt_username.fill(username),
       await this.txt_password.fill(password)
     ])
-    await this.btn_signIn.click();
+    await this.btn_login.click();
+    await this.page.waitForTimeout(1000);
   }
 
   async open() {
-    await super.open('/auth/login');
+    await super.open('/login');
   }
 }

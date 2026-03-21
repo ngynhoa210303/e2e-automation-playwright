@@ -1,0 +1,20 @@
+{
+  "filters": [
+    {
+      "type": "product-name",
+      "value": "Áo sơ mi caro"
+    },
+    {
+      "type": "category",
+      "value": "Shirt"
+    },
+    {
+      "type": "price",
+      "value": "0-500"
+    },
+    {
+      "type": "brand",
+      "value": "Nike"
+    }
+  ]
+}
