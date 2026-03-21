@@ -10,7 +10,12 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-
+    env:
+      TB_ADMIN_USERNAME: ${{ secrets.TB_ADMIN_USERNAME }}
+      TB_ADMIN_PASSWORD: ${{ secrets.TB_ADMIN_PASSWORD }}
+      TB_USER_USERNAME: ${{ secrets.TB_USER_USERNAME }}
+      TB_USER_PASSWORD: ${{ secrets.TB_USER_PASSWORD }}
+      TB_BASE_URL: ${{ secrets.TB_BASE_URL}}
     steps:
     - uses: actions/checkout@v4
 
