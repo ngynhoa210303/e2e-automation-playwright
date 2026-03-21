@@ -32,7 +32,7 @@ export abstract class BasePage {
   }
 
   async waitForPageLoad() {
-    await this.page.waitForLoadState('networkidle') 
+    await this.page.waitForLoadState('networkidle', { timeout: 10000 });
   }
 
   async pause_test() {

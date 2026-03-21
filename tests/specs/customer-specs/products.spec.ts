@@ -19,6 +19,7 @@ test.describe('Product Filter', () => {
 
   test('TC01 - Filter products by name', async ({ productCustomerPage }) => {
     await test.step('Open products page', async () => {
+      await productCustomerPage.waitForPageLoad();
       const beforeCount = await productCustomerPage.products_card.count();
       expect(beforeCount).toBeGreaterThan(1);
       const typeSearch = filterData.filters.find(
