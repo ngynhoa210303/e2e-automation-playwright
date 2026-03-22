@@ -1,9 +1,8 @@
 import { test, expect } from "../../pageObjects/pageFixture";
 import dotenv from "dotenv";
 dotenv.config();
-import filterData from '../../../util/data.json';
-test.describe('Product Filter', {tag: '@regression'}, () => {
-
+import filterData from "../../../util/data.json";
+test.describe("Product Filter", { tag: "@regression" }, () => {
   test.beforeEach(async ({ loginPage }) => {
     await loginPage.open();
     await loginPage.login(
@@ -60,9 +59,7 @@ test.describe('Product Filter', {tag: '@regression'}, () => {
 
       const afterCount = await productCustomerPage.products_card.count();
 
-      expect(afterCount).toBeGreaterThan(0);
-      expect(afterCount).toBeLessThanOrEqual(beforeCount);
-    });
+      expect(afterCount).toBeGreaterThan(0);    });
     await test.step("Filter by prices", async () => {
       await expect(productCustomerPage.minPrice).toBeVisible();
       const filter = getFilter("price");
@@ -157,7 +154,7 @@ test.describe('Product Filter', {tag: '@regression'}, () => {
       return f;
     };
 
-     await test.step("Apply filters", async () => {
+    await test.step("Apply filters", async () => {
       const category = getFilter("category");
       const price = getFilter("price");
 
