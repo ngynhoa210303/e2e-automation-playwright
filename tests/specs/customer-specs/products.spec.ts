@@ -2,7 +2,7 @@ import { test, expect } from '../../pageObjects/pageFixture';
 import dotenv from 'dotenv';
 dotenv.config();
 import filterData from '../../../util/data.json';
-test.describe('Product Filter', () => {
+test.describe('Product Filter', {tag: '@regression'}, () => {
   test.beforeEach(async ({ loginPage }) => {
     await loginPage.open();
     await loginPage.login(
