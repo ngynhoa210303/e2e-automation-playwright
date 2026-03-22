@@ -1,7 +1,7 @@
 {
   "name": "automation_bc",
   "version": "1.0.0",
-  "description": "",
+  "description": "e2e-automation-playwright",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
@@ -14,5 +14,16 @@
   },
   "dependencies": {
     "dotenv": "^17.3.1"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngynhoa210303/e2e-automation-playwright.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ngynhoa210303/e2e-automation-playwright/issues"
+  },
+  "homepage": "https://github.com/ngynhoa210303/e2e-automation-playwright#readme"
 }
