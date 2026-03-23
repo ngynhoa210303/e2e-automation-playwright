@@ -14,7 +14,6 @@ export default class LoginPage extends BasePage {
       await this.txt_password.fill(password)
     ])
     await this.btn_login.click();
-    await this.page.waitForTimeout(1000);
   }
 
   async open() {

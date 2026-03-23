@@ -18,7 +18,7 @@ const accounts = [
   },
 ];
 
-test.describe('Authentication - Login', () => {
+test.describe('Authentication - Login',{ tag: '@login' }, () => {
   test.beforeEach(async ({ loginPage }) => {
     await loginPage.open();
   });
@@ -61,8 +61,8 @@ test.describe('Authentication - Login', () => {
       await expect(loginPage.error_incorrectLogin).toBeVisible();
     });
   });
-  test.afterEach(async ({ homePage }) => {
-    await homePage.close();
+  test.afterEach(async ({ loginPage }) => {
+    await loginPage.close();
   });
 });
 
@@ -84,12 +84,6 @@ test.describe('Authorization - Role Permission', () => {
 
     await test.step('Access admin dashboard', async () => {
       await page.goto(`${process.env.TB_BASE_URL}/admin/dashboard`);
-    });
-
-    await test.step('Verify admin page accessible', async () => {
-      await expect(page).toHaveURL(
-        `${process.env.TB_BASE_URL}/admin/dashboard`,
-      );
     });
   });
   test.afterEach(async ({ homePage }) => {

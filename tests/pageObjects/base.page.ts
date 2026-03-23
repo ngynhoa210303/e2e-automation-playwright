@@ -2,16 +2,18 @@ import { Locator, type Page } from '@playwright/test';
 import NavBar from './components/navBar';
 import AllowCookiesPopup from './components/allowCookiesPopup';
 import Filter from './components/filter';
-import Search from './components/search';
+import ModalComponent from './components/confirmation_modal';
 import dotenv from 'dotenv';
 import ChangePassword from './components/changePasswordPopup';
+import ToastMessage from './components/toast-message';
 dotenv.config();
 
 export abstract class BasePage {
   public navBar: NavBar;
   public cookiePopup: AllowCookiesPopup;
   public filter: Filter;
-  public search: Search;
+  public modalConfirm: ModalComponent;
+  public toastMessage: ToastMessage;
   public changePassword: ChangePassword;
   public baseUrl = process.env.TB_BASE_URL || 'https://mrbip.vn';
 
@@ -19,7 +21,8 @@ export abstract class BasePage {
     this.navBar = new NavBar(this.page);
     this.cookiePopup = new AllowCookiesPopup(this.page);
     this.filter = new Filter(this.page);
-    this.search = new Search(this.page);
+    this.modalConfirm = new ModalComponent(this.page);
+    this.toastMessage = new ToastMessage(this.page);
     this.changePassword = new ChangePassword(this.page);
   }
 
