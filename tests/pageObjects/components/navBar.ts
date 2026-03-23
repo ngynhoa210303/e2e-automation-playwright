@@ -6,7 +6,7 @@ export default class NavBar extends BasePageComponent {
     products: this.page.locator("body div nav a:nth-child(1)"),
     collections: this.page.locator("body div nav a:nth-child(2)"),
     orders: this.page.locator("body div nav a:nth-child(3)"),
-    contact_us: this.page.locator("body div nav a:nth-child(4)")
+    cart: this.page.locator("body div nav a:nth-child(4)")
   };
 
   readonly userAvatar = this.page.locator("//div[contains(@class,'text-right hidden')]/following-sibling::div[1]");

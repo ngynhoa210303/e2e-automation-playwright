@@ -16,5 +16,17 @@
       "type": "brand",
       "value": "Nike"
     }
-  ]
+  ],
+  "products": {
+    "name": "Áo sơ mi caro",
+    "collar": "Cổ cài nút",
+    "sleeve": "Tay dài",
+    "brand": "H&M",
+    "price": 220000,
+    "color": "Xám đậm",
+    "size": "S"
+  },
+  "pay": {
+    "ship-fee": 41001
+  }
 }
