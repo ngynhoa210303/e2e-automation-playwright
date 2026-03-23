@@ -6,15 +6,31 @@
     },
     {
       "type": "category",
-      "value": "Shirt"
+      "value": "Áo sơ mi"
     },
     {
       "type": "price",
-      "value": "0-500"
+      "value": "0-800000"
     },
     {
       "type": "brand",
-      "value": "Nike"
+      "value": "Louis Vuitton"
+    },
+    {
+      "type": "color",
+      "value": "Đen"
+    },
+    {
+      "type": "size",
+      "value": "S"
+    },
+    {
+      "type": "collar style",
+      "value": "Cổ bẻ"
+    },
+    {
+      "type": "sleeve",
+      "value": "Tay ngắn"
     }
   ],
   "products": {
