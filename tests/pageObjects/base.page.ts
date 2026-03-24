@@ -6,6 +6,7 @@ import ModalComponent from './components/confirmation_modal';
 import dotenv from 'dotenv';
 import ChangePassword from './components/changePasswordPopup';
 import ToastMessage from './components/toast-message';
+import MenuBar from './components/menuBar';
 dotenv.config();
 
 export abstract class BasePage {
@@ -15,6 +16,7 @@ export abstract class BasePage {
   public modalConfirm: ModalComponent;
   public toastMessage: ToastMessage;
   public changePassword: ChangePassword;
+  public menuBar: MenuBar;
   public baseUrl = process.env.TB_BASE_URL || 'https://mrbip.vn';
 
   constructor(readonly page: Page) {
@@ -24,6 +26,7 @@ export abstract class BasePage {
     this.modalConfirm = new ModalComponent(this.page);
     this.toastMessage = new ToastMessage(this.page);
     this.changePassword = new ChangePassword(this.page);
+    this.menuBar = new MenuBar(this.page);
   }
 
   async open(path: string) {

@@ -5,6 +5,7 @@ import ProductCustomerPage from './pages/customer/product.page';
 import CartCustomerPage from './pages/customer/cart.page';
 import PayCustomerPage from './pages/customer/pay.page';
 import OrderCustomerPage from './pages/customer/order.page';
+import BillEmployPage from './pages/employee/bill.page';
 
 export type PageObjects = {
   homePage: HomePage;
@@ -13,6 +14,7 @@ export type PageObjects = {
   cartCustomerPage: CartCustomerPage;
   payCustomerPage: PayCustomerPage;
   orderCustomerPage: OrderCustomerPage;
+  billEmployPage: BillEmployPage;
 };
 
 export const test = base.extend<PageObjects>({
@@ -39,6 +41,10 @@ export const test = base.extend<PageObjects>({
   orderCustomerPage: async ({ page }, use) => {
     const orderCustomerPage = new OrderCustomerPage(page);
     await use(orderCustomerPage);
+  },
+  billEmployPage: async ({ page }, use) => {
+    const billEmployPage = new BillEmployPage(page);
+    await use(billEmployPage);
   },
 });
 
