@@ -15,9 +15,11 @@ jobs:
       TB_ADMIN_PASSWORD: ${{ secrets.TB_ADMIN_PASSWORD }}
       TB_USER_USERNAME: ${{ secrets.TB_USER_USERNAME }}
       TB_USER_PASSWORD: ${{ secrets.TB_USER_PASSWORD }}
-      TB_BASE_URL: ${{ secrets.TB_BASE_URL}}
-      TB_USER_USERNAME_2: ${{ secrets.TB_USER_USERNAME_2}}
-      TB_USER_PASSWORD_2: ${{ secrets.TB_USER_PASSWORD_2}}
+      TB_BASE_URL: ${{ secrets.TB_BASE_URL }}
+      TB_USER_USERNAME_2: ${{ secrets.TB_USER_USERNAME_2 }}
+      TB_USER_PASSWORD_2: ${{ secrets.TB_USER_PASSWORD_2 }}
+      TB_STAFF_USERNAME: ${{ secrets.TB_STAFF_USERNAME}}
+      TB_STAFF_PASSWORD: ${{ secrets.TB_STAFF_PASSWORD}}
     steps:
     - uses: actions/checkout@v4
 
