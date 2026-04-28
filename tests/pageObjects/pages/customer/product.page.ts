@@ -1,5 +1,7 @@
+import { expect } from "@playwright/test";
 import { BasePage } from "../../base.page";
-
+import { getDataFromAnyJsonFile, getDataFromObjectJsonFile } from "../../../common/commons";
+import filterData from '../../../../util/data.json';
 export default class ProductCustomerPage extends BasePage {
   readonly select_category = this.page.locator('[name="category"]');
   readonly products_card = this.page.locator('//div[contains(@class,"p-4 flex")]');
@@ -10,9 +12,6 @@ export default class ProductCustomerPage extends BasePage {
   readonly products_detail_price= this.page.locator(`(//div[contains(@class,'flex justify-between')]//span)[1]`);
   readonly products_detail_color_name = this.page.locator("//span[normalize-space(text())='Màu sắc']//parent::div//button[1]");
   readonly products_detail_size_name = this.page.locator("//button[contains(@class,'shadow-md transform scale-105')]");
-  readonly products_card = this.page.locator(
-    '//div[contains(@class,"p-4 flex")]',
-  );
   readonly select_color = this.page.locator('[name="color"]');
   readonly select_price = this.page.locator('[name="price"]');
   readonly select_brand = this.page.locator('[name="brand"]');
@@ -57,5 +56,28 @@ export default class ProductCustomerPage extends BasePage {
 
   async open() {
     await super.open("/products");
+  }
+  async openAndVerifyProduct() {
+    const typeSearch = await getDataFromAnyJsonFile(filterData, 'product-name');
+
+    await this.searchProduct(typeSearch?.value || '');
+
+    const productItem = this.page
+      .locator('p')
+      .filter({ hasText: typeSearch?.value })
+      .first();
+
+    await expect(productItem).toBeVisible();
+    await productItem.click();
+
+    await expect(
+      this.products_detail_product_name,
+    ).toBeVisible();
+
+    const expectedName = getDataFromObjectJsonFile(filterData.products, 'name');
+
+    await expect(this.products_detail_product_name).toHaveText(
+      expectedName,
+    );
   }
 }

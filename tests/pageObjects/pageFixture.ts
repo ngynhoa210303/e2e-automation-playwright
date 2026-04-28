@@ -6,6 +6,9 @@ import CartCustomerPage from './pages/customer/cart.page';
 import PayCustomerPage from './pages/customer/pay.page';
 import OrderCustomerPage from './pages/customer/order.page';
 import BillEmployPage from './pages/employee/bill.page';
+import MaterialPage from './pages/admin/material.page';
+import BrandPage from './pages/admin/brand.page';
+import PersonalPage from './pages/customer/personal.page';
 
 export type PageObjects = {
   homePage: HomePage;
@@ -15,6 +18,9 @@ export type PageObjects = {
   payCustomerPage: PayCustomerPage;
   orderCustomerPage: OrderCustomerPage;
   billEmployPage: BillEmployPage;
+  materialPage: MaterialPage;
+  brandPage: BrandPage;
+  personalPage: PersonalPage;
 };
 
 export const test = base.extend<PageObjects>({
@@ -46,6 +52,18 @@ export const test = base.extend<PageObjects>({
     const billEmployPage = new BillEmployPage(page);
     await use(billEmployPage);
   },
+  materialPage: async ({ page }, use) => {
+    const materialPage = new MaterialPage(page);
+    await use(materialPage);
+  },
+  brandPage: async ({ page }, use) => {
+    const brandPage = new BrandPage(page);
+    await use(brandPage);
+  },
+  personalPage: async ({ page }, use) => {
+    const personalPage = new PersonalPage(page);
+    await use(personalPage);
+  }
 });
 
 export { expect, type Page, type Locator, type Response } from '@playwright/test';

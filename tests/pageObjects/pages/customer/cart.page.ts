@@ -1,6 +1,10 @@
 import { expect } from '@playwright/test';
 import { BasePage } from '../../base.page';
-
+import ProductCustomerPage from './product.page';
+import LoginPage from '../login.page';
+import HomePage from './home.page';
+import { getDataFromAnyJsonFile } from '../../../common/commons';
+import filterData from '../../../../util/data.json';
 export default class CartCustomerPage extends BasePage {
   readonly product_card = this.page.locator(
     "//div[@class='space-y-4']//div[contains(@class,'bg-white')]",
@@ -40,13 +44,44 @@ export default class CartCustomerPage extends BasePage {
     await super.open('/cart');
   }
   async clearCartBeforeTest() {
-    const toast = this.page.locator(
-      "//div[contains(@class,'Toastify__toast--success')]",
-    );
+    const toast = this.toastMessage.success_message;
     while ((await this.delete_button.count()) > 0) {
       await this.delete_button.first().click();
       await expect(toast.first()).toBeVisible();
       await expect(toast.first()).toBeHidden();
     }
+  }
+  async openProductDetail(
+    productCustomerPage: ProductCustomerPage,
+    loginPage: LoginPage,
+    homePage: HomePage
+  ) {
+    await loginPage.navBar.links.products.click();
+    await expect(homePage.page).toHaveURL(`${process.env.TB_BASE_URL}/products`);
+  
+    const typeSearch = await getDataFromAnyJsonFile(filterData, 'product-name');
+  
+    await productCustomerPage.searchProduct(typeSearch?.value || '');
+  
+    const productItem = productCustomerPage.page
+      .locator('p')
+      .filter({ hasText: typeSearch?.value })
+      .first();
+  
+    await expect(productItem).toBeVisible();
+    await productItem.click();
+  
+    await expect(
+      productCustomerPage.products_detail_product_name,
+    ).toBeVisible();
+  }
+  
+  // Add product vào cart
+  async addProductToCart(productCustomerPage: ProductCustomerPage, cartCustomerPage: CartCustomerPage) {
+    await cartCustomerPage.add_to_card_button.click();
+  
+    await expect(
+      cartCustomerPage.toastMessage.success_message.first(),
+    ).toBeVisible();
   }
 }

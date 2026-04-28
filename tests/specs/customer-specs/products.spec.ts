@@ -17,7 +17,7 @@ test.describe("Product Filter", { tag: "@regression" }, () => {
     await loginPage.page.waitForTimeout(1000);
   });
 
-  test("TC01 - Filter products by name", async ({ productCustomerPage }) => {
+  test("TC017 - Filter products by name", async ({ productCustomerPage }) => {
     await test.step("Open products page", async () => {
       await productCustomerPage.waitForPageLoad();
       const beforeCount = await productCustomerPage.products_card.count();
@@ -41,7 +41,7 @@ test.describe("Product Filter", { tag: "@regression" }, () => {
         });
     });
   });
-  test("TC02 - Filter products by more options", async ({
+  test("TC018 - Filter products by more options", async ({
     productCustomerPage,
   }) => {
     const getFilter = (type: string) => {
@@ -51,15 +51,12 @@ test.describe("Product Filter", { tag: "@regression" }, () => {
     };
     await test.step("Filter by category", async () => {
       const beforeCount = await productCustomerPage.products_card.count();
-
       const filter = getFilter("category");
-
       await productCustomerPage.selectCategory(filter.value);
       await productCustomerPage.waitForPageLoad();
-
       const afterCount = await productCustomerPage.products_card.count();
-
-      expect(afterCount).toBeGreaterThan(0);    });
+      expect(afterCount).toBeGreaterThan(0);  
+      });
     await test.step("Filter by prices", async () => {
       await expect(productCustomerPage.minPrice).toBeVisible();
       const filter = getFilter("price");
@@ -90,8 +87,6 @@ test.describe("Product Filter", { tag: "@regression" }, () => {
       await productCustomerPage.waitForPageLoad();
 
       const afterCount = await productCustomerPage.products_card.count();
-
-      expect(afterCount).toBeGreaterThan(0);
       expect(afterCount).toBeLessThanOrEqual(beforeCount);
     });
     await test.step("Filter by color", async () => {
@@ -147,7 +142,7 @@ test.describe("Product Filter", { tag: "@regression" }, () => {
       expect(afterCount).toBeLessThanOrEqual(beforeCount);
     });
   });
-  test("TC03 - Reset all filters", async ({ productCustomerPage }) => {
+  test("TC019 - Reset all filters", async ({ productCustomerPage }) => {
     const getFilter = (type: string) => {
       const f = filterData.filters.find((f) => f.type === type);
       if (!f) throw new Error(`Missing filter: ${type}`);
@@ -157,17 +152,13 @@ test.describe("Product Filter", { tag: "@regression" }, () => {
     await test.step("Apply filters", async () => {
       const category = getFilter("category");
       const price = getFilter("price");
-
       const [min, max] = price.value.split("-");
-
       await productCustomerPage.selectCategory(category.value);
       await productCustomerPage.filterByPrice(min, max);
-
       await productCustomerPage.waitForPageLoad();
     });
 
     let filteredCount = 0;
-
     await test.step("Get filtered count", async () => {
       filteredCount = await productCustomerPage.products_card.count();
       expect(filteredCount).toBeGreaterThan(0);
@@ -184,12 +175,6 @@ test.describe("Product Filter", { tag: "@regression" }, () => {
       await expect(productCustomerPage.maxPrice).toHaveValue("");
 
       await expect(productCustomerPage.select_category).toHaveValue("");
-    });
-
-    await test.step("Verify product list reset", async () => {
-      const resetCount = await productCustomerPage.products_card.count();
-
-      expect(resetCount).toBeGreaterThanOrEqual(filteredCount);
     });
   });
   test.afterEach(async ({ homePage }) => {

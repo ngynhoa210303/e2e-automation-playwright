@@ -3,10 +3,10 @@ import NavBar from './components/navBar';
 import AllowCookiesPopup from './components/allowCookiesPopup';
 import Filter from './components/filter';
 import ModalComponent from './components/confirmation_modal';
-import dotenv from 'dotenv';
-import ChangePassword from './components/changePasswordPopup';
 import ToastMessage from './components/toast-message';
+import AttributeModalComponent from './components/admin/attributeModalComponent';
 import MenuBar from './components/menuBar';
+import dotenv from 'dotenv';
 dotenv.config();
 
 export abstract class BasePage {
@@ -15,8 +15,8 @@ export abstract class BasePage {
   public filter: Filter;
   public modalConfirm: ModalComponent;
   public toastMessage: ToastMessage;
-  public changePassword: ChangePassword;
   public menuBar: MenuBar;
+  public attributeModalComponent: AttributeModalComponent;
   public baseUrl = process.env.TB_BASE_URL || 'https://mrbip.vn';
 
   constructor(readonly page: Page) {
@@ -25,8 +25,8 @@ export abstract class BasePage {
     this.filter = new Filter(this.page);
     this.modalConfirm = new ModalComponent(this.page);
     this.toastMessage = new ToastMessage(this.page);
-    this.changePassword = new ChangePassword(this.page);
     this.menuBar = new MenuBar(this.page);
+    this.attributeModalComponent = new AttributeModalComponent(this.page);
   }
 
   async open(path: string) {
@@ -46,6 +46,6 @@ export abstract class BasePage {
   }
 
   async reload_page() {
-    await this.page.reload({waitUntil: 'domcontentloaded'})
+    await this.page.reload({ waitUntil: 'domcontentloaded' })
   }
 }

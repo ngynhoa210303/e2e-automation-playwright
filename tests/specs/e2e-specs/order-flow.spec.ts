@@ -31,7 +31,7 @@ test.describe('Order Flow', { tag: '@confirm-order' }, () => {
     );
   });
 
-  test('TC21 - Verify staff can view the correct order created by customer', async ({
+  test('TC062 - Verify staff can view the correct order created by customer', async ({
     productCustomerPage,
     cartCustomerPage,
     payCustomerPage,
