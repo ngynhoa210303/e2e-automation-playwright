@@ -20,6 +20,9 @@ jobs:
       TB_USER_PASSWORD_2: ${{ secrets.TB_USER_PASSWORD_2 }}
       TB_STAFF_USERNAME: ${{ secrets.TB_STAFF_USERNAME}}
       TB_STAFF_PASSWORD: ${{ secrets.TB_STAFF_PASSWORD}}
+      TB_USER_EMAIL: ${{ secrets.TB_USER_EMAIL}}
+      TB_DISABLED_USERNAME: ${{ secrets.TB_DISABLED_USERNAME}}
+      TB_DISABLED_PASSWORD: ${{ secrets.TB_DISABLED_PASSWORD}}
     steps:
     - uses: actions/checkout@v4
 
