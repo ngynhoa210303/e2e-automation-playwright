@@ -18,8 +18,11 @@ jobs:
       TB_BASE_URL: ${{ secrets.TB_BASE_URL }}
       TB_USER_USERNAME_2: ${{ secrets.TB_USER_USERNAME_2 }}
       TB_USER_PASSWORD_2: ${{ secrets.TB_USER_PASSWORD_2 }}
-      TB_STAFF_USERNAME: ${{ secrets.TB_STAFF_USERNAME}}
-      TB_STAFF_PASSWORD: ${{ secrets.TB_STAFF_PASSWORD}}
+      TB_STAFF_USERNAME: ${{ secrets.TB_STAFF_USERNAME }}
+      TB_STAFF_PASSWORD: ${{ secrets.TB_STAFF_PASSWORD }}
+      TB_USER_EMAIL: ${{ secrets.TB_USER_EMAIL}}
+      TB_DISABLED_USERNAME: ${{ secrets.TB_DISABLED_USERNAME }}
+      TB_DISABLED_PASSWORD: ${{ secrets.TB_DISABLED_PASSWORD }}
     steps:
     - uses: actions/checkout@v4
 
@@ -44,7 +47,7 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test --project=chromium
 
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
