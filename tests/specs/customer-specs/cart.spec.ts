@@ -21,8 +21,6 @@ test.describe( 'Cart - Add / Update / Remove',{ tag: '@cart' }, () => {
       // Clear cart trước mỗi test
       await loginPage.navBar.links.cart.click();
       await expect(loginPage.page).toHaveURL(`${process.env.TB_BASE_URL}/cart`);
-
-      await cartCustomerPage.waitForPageLoad();
       await cartCustomerPage.clearCartBeforeTest();
 
       await cartCustomerPage.continue_shopping_button.click();

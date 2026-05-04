@@ -1,14 +1,14 @@
 import { test, expect } from '../../../pageObjects/pageFixture';
 import dotenv from 'dotenv';
 dotenv.config();
-
+const username = "hoanghoa";
+const passwordTest = "123456";
 test.describe('Personal - Change Password', { tag: '@changepassword' }, () => {
   test.beforeEach(async ({ loginPage }) => {
     await loginPage.open();
-
     await loginPage.login(
-      process.env.TB_USER_USERNAME!,
-      process.env.TB_USER_PASSWORD!,
+      username,
+      passwordTest,
     );
     await expect(loginPage.page).toHaveURL(`${process.env.TB_BASE_URL}/home`);
     await loginPage.navBar.userAvatar.click();
@@ -16,7 +16,7 @@ test.describe('Personal - Change Password', { tag: '@changepassword' }, () => {
   });
 
   test("TC056 - Change password successfully", async ({ personalPage }) => {
-    const oldPass = process.env.TB_USER_PASSWORD!;
+    const oldPass = passwordTest;
     const newPass = "NewPassword123!";
 
     await test.step("Open change password form", async () => {
@@ -46,7 +46,7 @@ test.describe('Personal - Change Password', { tag: '@changepassword' }, () => {
   test("TC057 - Wrong current password", async ({ personalPage }) => {
     const wrongOldPass = "WrongPass123!";
     const newPass = "New123!";
-    const originalPass = process.env.TB_USER_PASSWORD!;
+    const originalPass = "123456";
 
     await test.step("Open change password form", async () => {
       await personalPage.clickEditInformation();
@@ -91,7 +91,7 @@ test.describe('Personal - Change Password', { tag: '@changepassword' }, () => {
 
     await test.step("Enter mismatched confirm password", async () => {
       await personalPage.change_password(
-        process.env.TB_USER_PASSWORD!,
+        passwordTest,
         "New123!",
         "Different123!"
       );
@@ -111,7 +111,7 @@ test.describe('Personal - Change Password', { tag: '@changepassword' }, () => {
 
     await test.step("Enter invalid password format", async () => {
       await personalPage.change_password(
-        process.env.TB_USER_PASSWORD!,
+        passwordTest,
         "a",
         "a"
       );
@@ -131,7 +131,7 @@ test.describe('Personal - Change Password', { tag: '@changepassword' }, () => {
 
     await test.step("Enter password information", async () => {
       await personalPage.change_password(
-        process.env.TB_USER_PASSWORD!,
+        passwordTest,
         "NewPassword123!",
         "NewPassword123!"
       );
@@ -159,7 +159,7 @@ test.describe('Personal - Change Password', { tag: '@changepassword' }, () => {
 
     await test.step("Enter new password then cancel", async () => {
       await personalPage.change_password(
-        process.env.TB_USER_PASSWORD!,
+        passwordTest,
         "NewPassword123!",
         "NewPassword123!"
       );
@@ -173,7 +173,7 @@ test.describe('Personal - Change Password', { tag: '@changepassword' }, () => {
 
     await test.step("Login with new password should fail", async () => {
       await loginPage.login(
-        process.env.TB_USER_USERNAME!,
+        username,
         "NewPassword123!"
       );
       await expect(loginPage.error_incorrectLogin).toBeVisible();
