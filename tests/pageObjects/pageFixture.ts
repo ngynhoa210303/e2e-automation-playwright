@@ -9,6 +9,9 @@ import BillEmployPage from './pages/employee/bill.page';
 import MaterialPage from './pages/admin/material.page';
 import BrandPage from './pages/admin/brand.page';
 import PersonalPage from './pages/customer/personal.page';
+import ColorPage from './pages/admin/color.page';
+import SizePage from './pages/admin/size.page';
+import SleevePage from './pages/admin/sleeve.page';
 
 export type PageObjects = {
   homePage: HomePage;
@@ -21,6 +24,9 @@ export type PageObjects = {
   materialPage: MaterialPage;
   brandPage: BrandPage;
   personalPage: PersonalPage;
+  colorPage: ColorPage;
+  sizePage: SizePage;
+  sleevePage: SleevePage;
 };
 
 export const test = base.extend<PageObjects>({
@@ -63,6 +69,18 @@ export const test = base.extend<PageObjects>({
   personalPage: async ({ page }, use) => {
     const personalPage = new PersonalPage(page);
     await use(personalPage);
+  },
+   colorPage: async ({ page }, use) => {
+    const colorPage = new ColorPage(page);
+    await use(colorPage);
+  },
+   sizePage: async ({ page }, use) => {
+    const sizePage = new SizePage(page);
+    await use(sizePage);
+  },
+   sleevePage: async ({ page }, use) => {
+    const sleevePage = new SleevePage(page);
+    await use(sleevePage);
   }
 });
 
