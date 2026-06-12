@@ -9,6 +9,8 @@ import BillEmployPage from './pages/employee/bill.page';
 import MaterialPage from './pages/admin/material.page';
 import BrandPage from './pages/admin/brand.page';
 import PersonalPage from './pages/customer/personal.page';
+import CategoryPage from './pages/admin/category.page';
+import CollarPage from './pages/admin/collar.page';
 
 export type PageObjects = {
   homePage: HomePage;
@@ -20,7 +22,9 @@ export type PageObjects = {
   billEmployPage: BillEmployPage;
   materialPage: MaterialPage;
   brandPage: BrandPage;
+  categoryPage: CategoryPage;
   personalPage: PersonalPage;
+  collarPage: CollarPage;
 };
 
 export const test = base.extend<PageObjects>({
@@ -60,9 +64,17 @@ export const test = base.extend<PageObjects>({
     const brandPage = new BrandPage(page);
     await use(brandPage);
   },
+  categoryPage: async ({ page }, use) => {
+    const categoryPage = new CategoryPage(page);
+    await use(categoryPage);
+  },
   personalPage: async ({ page }, use) => {
     const personalPage = new PersonalPage(page);
     await use(personalPage);
+  },
+  collarPage: async ({ page }, use) => {
+    const collarPage = new CollarPage(page);
+    await use(collarPage);
   }
 });
 

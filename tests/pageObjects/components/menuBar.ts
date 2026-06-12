@@ -13,7 +13,7 @@ export default class MenuBar extends BasePageComponent {
     billOnl: this.page.locator("//a[@href='/admin/order/online']"),
     productLists: this.page.locator("//a[@href='/admin/product']"),
     productCreate: this.page.locator("//a[@href='/admin/product/create']"),
-    categorys: this.page.locator("//a[@href='/admin/category']']"),
+    categories: this.page.locator("//a[@href='/admin/category']"),
     brands: this.page.locator("//a[@href='/admin/brand']"),
     collars: this.page.locator("//a[@href='/admin/attribute/collar']"),
     materials: this.page.locator("//a[@href='/admin/material']"),
