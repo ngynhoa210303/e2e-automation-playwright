@@ -9,11 +9,11 @@ export default class BrandPage extends BasePage {
     await super.open('/admin/brand');
   }
   getEditButtonByName(name: string) {
-    return this.page.locator(`//tr[td[text()="${name}"]]//button[@title='Chỉnh sửa']`);
+    return this.page.locator(`//tr[td[normalize-space()="${name}"]]//button[@title='Chỉnh sửa']`);
   }
 
   getRowByName(name: string) {
-    return this.page.locator(`//tr[td[text()="${name}"]]`);
+    return this.page.locator(`//tr[td[normalize-space()="${name}"]]`);
   }
   getToggleByName(name: string) {
   return this.page.locator(

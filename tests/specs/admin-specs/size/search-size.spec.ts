@@ -22,16 +22,16 @@ test.describe("Size Management - Search", { tag: "@size" }, () => {
     });
 
     await test.step("Search existing size", async () => {
-      const keyword = "XL";
+      const keyword = "XXXS";
 
       await sizePage.size_searchInput.fill(keyword);
       await sizePage.size_searchInput.press("Enter");
     });
 
     await test.step("Verify search result is displayed", async () => {
-      const row = sizePage.getRowByName("XL").first();
+      const row = sizePage.getRowByName("XXXS").first();
       await expect(row).toBeVisible();
-      await expect(row).toContainText("XL");
+      await expect(row).toContainText("XXXS");
     });
   });
 

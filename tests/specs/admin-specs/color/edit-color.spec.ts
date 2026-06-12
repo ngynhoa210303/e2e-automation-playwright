@@ -37,7 +37,7 @@ test.describe("color Management - Update", { tag: "@update-color" }, () => {
   }
 
   test("TC1 - Update color name successfully", async ({ colorPage }) => {
-    const oldName = faker.company.name();
+    const oldName = "Đỏ đô";
     const newName = `Color_${faker.string.alphanumeric(5)}`;
 
     await test.step("Prepare color data", async () => {
@@ -74,7 +74,7 @@ test.describe("color Management - Update", { tag: "@update-color" }, () => {
   });
 
   test("TC2 - Validate update with empty name", async ({ colorPage }) => {
-    const name = faker.company.name();
+    const name = "Xanh rêu";
 
     await test.step("Prepare color", async () => {
       await colorPage.waitForPageLoad();
@@ -97,8 +97,8 @@ test.describe("color Management - Update", { tag: "@update-color" }, () => {
   });
 
   test("TC3 - Validate update with duplicate name", async ({ colorPage }) => {
-    const name1 = faker.company.name();
-    const name2 = faker.company.name();
+    const name1 = "Hồng pastel";
+    const name2 = "Tím";
 
     await test.step("Prepare 2 colors", async () => {
       await colorPage.waitForPageLoad();
@@ -120,7 +120,7 @@ test.describe("color Management - Update", { tag: "@update-color" }, () => {
   });
 
   test("TC4 - Verify updated color persists after reload", async ({ colorPage }) => {
-    const oldName = faker.company.name();
+    const oldName = "Vàng";
     const newName = `Color_${faker.string.alphanumeric(5)}`;
 
     await test.step("Prepare color", async () => {

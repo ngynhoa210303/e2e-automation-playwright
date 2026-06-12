@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { faker } from '@faker-js/faker';
 
-test.describe("Color Management - Create & Validation", { tag: "@color" }, () => {
+test.describe("Color Management - Create & Validation", { tag: "@create-color" }, () => {
   test.beforeEach(async ({ loginPage }) => {
     await loginPage.open();
     await loginPage.login(
@@ -19,7 +19,7 @@ test.describe("Color Management - Create & Validation", { tag: "@color" }, () =>
 
   test("TC1 - Create new color if not exists", async ({ colorPage }) => {
     await colorPage.waitForPageLoad();
-    const color = faker.company.name();
+    const color = faker.color.human();
     await colorPage.color_searchInput.fill(color);
     await colorPage.color_searchInput.press('Enter');
     await colorPage.page.waitForLoadState('networkidle');

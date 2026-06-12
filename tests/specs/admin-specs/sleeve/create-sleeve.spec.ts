@@ -19,7 +19,7 @@ test.describe("sleeve Management - Create & Validation", { tag: "@sleeve" }, () 
 
   test("TC1 - Create new sleeve if not exists", async ({ sleevePage }) => {
     await sleevePage.waitForPageLoad();
-    const sleeve = faker.company.name();
+    const sleeve = "Tay thể thao";
     await sleevePage.sleeve_searchInput.fill(sleeve);
     await sleevePage.sleeve_searchInput.press('Enter');
     await sleevePage.page.waitForLoadState('networkidle');

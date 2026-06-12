@@ -37,7 +37,7 @@ test.describe("sleeve Management - Update", { tag: "@update-sleeve" }, () => {
   }
 
   test("TC1 - Update sleeve name successfully", async ({ sleevePage }) => {
-    const oldName = faker.company.name();
+    const oldName = "Dài tay";
     const newName = `sleeve_${faker.string.alphanumeric(5)}`;
 
     await test.step("Prepare sleeve data", async () => {
@@ -74,7 +74,7 @@ test.describe("sleeve Management - Update", { tag: "@update-sleeve" }, () => {
   });
 
   test("TC2 - Validate update with empty name", async ({ sleevePage }) => {
-    const name = faker.company.name();
+    const name = "Tay basic";
 
     await test.step("Prepare sleeve", async () => {
       await sleevePage.waitForPageLoad();
@@ -97,8 +97,8 @@ test.describe("sleeve Management - Update", { tag: "@update-sleeve" }, () => {
   });
 
   test("TC3 - Validate update with duplicate name", async ({ sleevePage }) => {
-    const name1 = faker.company.name();
-    const name2 = faker.company.name();
+    const name1 = "Tay ngắn";
+    const name2 = "Tay xẻ";
 
     await test.step("Prepare 2 sleeves", async () => {
       await sleevePage.waitForPageLoad();
@@ -120,7 +120,7 @@ test.describe("sleeve Management - Update", { tag: "@update-sleeve" }, () => {
   });
 
   test("TC4 - Verify updated sleeve persists after reload", async ({ sleevePage }) => {
-    const oldName = faker.company.name();
+    const oldName = "Tay ngắn";
     const newName = `sleeve_${faker.string.alphanumeric(5)}`;
 
     await test.step("Prepare sleeve", async () => {
@@ -184,7 +184,7 @@ test.describe("sleeve Management - Update", { tag: "@update-sleeve" }, () => {
       const toast = sleevePage.toastMessage.success_message.first();
       await expect(toast).toBeVisible();
       await expect(toast).toContainText(
-        "Thay đổi trạng thái thương hiệu thành công"
+        "Thay đổi trạng thái thành công"
       );
     });
 
@@ -206,7 +206,7 @@ test.describe("sleeve Management - Update", { tag: "@update-sleeve" }, () => {
     let oldStatus: string | null;
     let newStatus: string | null;
     let statusAfterReload: string | null;
-    const name = "Tay phồng nhẹ";
+    const name = "Tay lỡ";
 
     await test.step("Open sleeve page and search item", async () => {
       await sleevePage.waitForPageLoad();

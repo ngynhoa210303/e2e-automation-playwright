@@ -19,7 +19,7 @@ test.describe("size Management - Create & Validation", { tag: "@size" }, () => {
 
   test("TC1 - Create new size if not exists", async ({ sizePage }) => {
     await sizePage.waitForPageLoad();
-    const size = faker.company.name();
+    const size = "Slim Fit"
     await sizePage.size_searchInput.fill(size);
     await sizePage.size_searchInput.press('Enter');
     await sizePage.page.waitForLoadState('networkidle');
@@ -73,8 +73,8 @@ test.describe("size Management - Create & Validation", { tag: "@size" }, () => {
   });
 
   test("TC5 - Validate duplicate size name", async ({ sizePage }) => {
-    const name = "L";
-    await test.step("Create size with name 'L'", async () => {
+    const name = "Regular";
+    await test.step("Create size with name 'Regular'", async () => {
       await sizePage.waitForPageLoad();
       await sizePage.add_button.click();
       await sizePage.attributeModalComponent.createAttribute("Size", name);

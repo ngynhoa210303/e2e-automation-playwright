@@ -9,6 +9,11 @@ import BillEmployPage from './pages/employee/bill.page';
 import MaterialPage from './pages/admin/material.page';
 import BrandPage from './pages/admin/brand.page';
 import PersonalPage from './pages/customer/personal.page';
+import CategoryPage from './pages/admin/category.page';
+import ColorPage from './pages/admin/color.page';
+import SizePage from './pages/admin/size.page';
+import SleevePage from './pages/admin/sleeve.page';
+import CollarPage from './pages/admin/collar.page';
 
 export type PageObjects = {
   homePage: HomePage;
@@ -22,6 +27,10 @@ export type PageObjects = {
   brandPage: BrandPage;
   categoryPage: CategoryPage;
   personalPage: PersonalPage;
+  colorPage: ColorPage;
+  sizePage: SizePage;
+  sleevePage: SleevePage;
+  collarPage: CollarPage;
 };
 
 export const test = base.extend<PageObjects>({
@@ -68,6 +77,22 @@ export const test = base.extend<PageObjects>({
   personalPage: async ({ page }, use) => {
     const personalPage = new PersonalPage(page);
     await use(personalPage);
+  },
+  colorPage: async ({ page }, use) => {
+    const colorPage = new ColorPage(page);
+    await use(colorPage);
+  },
+  sizePage: async ({ page }, use) => {
+    const sizePage = new SizePage(page);
+    await use(sizePage);
+  },
+  sleevePage: async ({ page }, use) => {
+    const sleevePage = new SleevePage(page);
+    await use(sleevePage);
+  },
+  collarPage: async ({ page }, use) => {
+    const collarPage = new CollarPage(page);
+    await use(collarPage);
   }
 });
 

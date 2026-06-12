@@ -37,7 +37,7 @@ test.describe("size Management - Update", { tag: "@update-size" }, () => {
   }
 
   test("TC1 - Update size name successfully", async ({ sizePage }) => {
-    const oldName = faker.company.name();
+    const oldName = "One Size"
     const newName = `Size_${faker.string.alphanumeric(5)}`;
 
     await test.step("Prepare size data", async () => {
@@ -74,7 +74,7 @@ test.describe("size Management - Update", { tag: "@update-size" }, () => {
   });
 
   test("TC2- Validate update with empty name", async ({ sizePage }) => {
-    const name = faker.company.name();
+    const name = "Free Size";
 
     await test.step("Prepare size", async () => {
       await sizePage.waitForPageLoad();
@@ -97,8 +97,8 @@ test.describe("size Management - Update", { tag: "@update-size" }, () => {
   });
 
   test("TC3 - Validate update with duplicate name", async ({ sizePage }) => {
-    const name1 = faker.company.name();
-    const name2 = faker.company.name();
+    const name1 = "5XL";
+    const name2 = "6XL";
 
     await test.step("Prepare 2 sizes", async () => {
       await sizePage.waitForPageLoad();
@@ -120,7 +120,7 @@ test.describe("size Management - Update", { tag: "@update-size" }, () => {
   });
 
   test("TC4 - Verify updated size persists after reload", async ({ sizePage }) => {
-    const oldName = faker.company.name();
+    const oldName = "2XL";
     const newName = `size_${faker.string.alphanumeric(5)}`;
 
     await test.step("Prepare size", async () => {
@@ -160,7 +160,7 @@ test.describe("size Management - Update", { tag: "@update-size" }, () => {
   test("TC5 - Toggle size status successfully", async ({ sizePage }) => {
     let oldStatus: string | null;
     let newStatus: string | null;
-    const name = "Predovic Inc";
+    const name = "5XL";
 
     await test.step("Open size page and search item", async () => {
       await sizePage.waitForPageLoad();
@@ -206,7 +206,7 @@ test.describe("size Management - Update", { tag: "@update-size" }, () => {
     let oldStatus: string | null;
     let newStatus: string | null;
     let statusAfterReload: string | null;
-    const name = "Predovic Inc";
+    const name = "9XL";
 
     await test.step("Open size page and search item", async () => {
       await sizePage.waitForPageLoad();
