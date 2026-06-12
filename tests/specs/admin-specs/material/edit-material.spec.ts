@@ -210,7 +210,7 @@ test.describe("Material Management - Update", { tag: "@update-material" }, () =>
     let oldStatus: string | null;
     let newStatus: string | null;
     let statusAfterReload: string | null;
-    const name = "Ceramic";
+    const name = "Rubber";
 
     await test.step("Open material page and search item", async () => {
       await materialPage.waitForPageLoad();
@@ -240,6 +240,7 @@ test.describe("Material Management - Update", { tag: "@update-material" }, () =>
         newStatus = await toggleInput.getAttribute("aria-checked");
         expect(newStatus).not.toBe(oldStatus);
       }).toPass();
+      await expect(materialPage.toastMessage.success_message.first()).toBeHidden()
     });
 
     await test.step("Reload page", async () => {

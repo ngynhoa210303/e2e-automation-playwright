@@ -2,7 +2,7 @@ import { test, expect } from "../../../pageObjects/pageFixture";
 import dotenv from "dotenv";
 dotenv.config();
 
-test.describe("Material Management - Sort", { tag: "@material" }, () => {
+test.describe("Category Management - Sort", { tag: ['@sort-category', '@category', '@smoke1'] }, () => {
   test.beforeEach(async ({ loginPage }) => {
     await loginPage.open();
     await loginPage.login(
@@ -10,20 +10,20 @@ test.describe("Material Management - Sort", { tag: "@material" }, () => {
       process.env.TB_ADMIN_PASSWORD!,
     );
     await expect(loginPage.page).toHaveURL(`${process.env.TB_BASE_URL}/admin/dashboard`);
-    await loginPage.menuBar.submenu.materials.click();
+    await loginPage.menuBar.submenu.categories.click();
     await expect(loginPage.page).toHaveURL(
-      `${process.env.TB_BASE_URL}/admin/material`,
+      `${process.env.TB_BASE_URL}/admin/category`,
     );
   });
-  
-  test("TC049 - Sort material by name (Tên Chất Liệu)", async ({ materialPage }) => {
-    await test.step("Open material page", async () => {
-      await materialPage.waitForPageLoad();
+  test("CT015 - Sort category by name (Tên Danh Mục)", async ({ categoryPage }) => {
+
+    await test.step("Open category page", async () => {
+      await categoryPage.waitForPageLoad();
     });
 
     await test.step("Get initial list order", async () => {
-      await materialPage.page.selectOption("#entries", "50");
-      const initialNames = await materialPage.page
+      await categoryPage.page.selectOption("#entries", "50");
+      const initialNames = await categoryPage.page
         .locator("//tbody//tr//td[3]")
         .allTextContents();
 
@@ -31,14 +31,14 @@ test.describe("Material Management - Sort", { tag: "@material" }, () => {
     });
 
     await test.step("Click sort by name", async () => {
-      await materialPage.page
-        .locator("//th[contains(.,'Tên Chất Liệu')]")
+      await categoryPage.page
+        .locator("//th[contains(.,'Tên Danh Mục')]")
         .click();
     });
-    const errorToast = materialPage.toastMessage.fail_message.first();
+    const errorToast = categoryPage.toastMessage.fail_message.first();
     await expect(errorToast).not.toBeVisible();
     await test.step("Verify list is sorted", async () => {
-      const sortedNames = await materialPage.page
+      const sortedNames = await categoryPage.page
         .locator("//tbody//tr//td[3]")
         .allTextContents();
 
@@ -49,7 +49,6 @@ test.describe("Material Management - Sort", { tag: "@material" }, () => {
       // expect(sortedNames).toEqual(expected);
     });
   });
-  
   test.afterEach(async ({ homePage }) => {
     await homePage.close();
   });

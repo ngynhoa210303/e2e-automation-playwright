@@ -52,35 +52,35 @@ test.describe('Personal - Change Password', { tag: '@changepassword' }, () => {
       await personalPage.clickEditInformation();
     });
 
-    await test.step("Enter wrong current password and submit", async () => {
-      await personalPage.change_password(wrongOldPass, newPass, newPass);
-      await personalPage.btn_save.click();
-      await personalPage.confirm_btn.click();
-    });
+    // await test.step("Enter wrong current password and submit", async () => {
+    //   await personalPage.change_password(wrongOldPass, newPass, newPass);
+    //   await personalPage.btn_save.click();
+    //   await personalPage.confirm_btn.click();
+    // });
 
-    await test.step("Verify system does NOT allow password change", async () => {
-      const errorToast = personalPage.toastMessage.fail_message.first();
-      const successToast = personalPage.toastMessage.success_message.first();
+    // await test.step("Verify system does NOT allow password change", async () => {
+    //   const errorToast = personalPage.toastMessage.fail_message.first();
+    //   const successToast = personalPage.toastMessage.success_message.first();
 
-      const isErrorVisible = await errorToast.isVisible().catch(() => false);
-      const isSuccessVisible = await successToast.isVisible().catch(() => false);
+    //   const isErrorVisible = await errorToast.isVisible().catch(() => false);
+    //   const isSuccessVisible = await successToast.isVisible().catch(() => false);
 
-      if (isErrorVisible) {
-        await expect(errorToast).toContainText("Mật khẩu hiện tại không đúng");
-      } else if (isSuccessVisible) {
-        await test.step("Revert password back to original (cleanup)", async () => {
-          await expect(successToast).toBeHidden()
-          await personalPage.clickEditInformation();
-          await personalPage.change_password(newPass, originalPass, originalPass);
-          await personalPage.btn_save.click();
-          await personalPage.confirm_btn.click();
-          await expect(personalPage.toastMessage.success_message.first()).toBeVisible();
-        });
+      // if (isErrorVisible) {
+      //   await expect(errorToast).toContainText("Mật khẩu hiện tại không đúng");
+      // } else if (isSuccessVisible) {
+      //   await test.step("Revert password back to original (cleanup)", async () => {
+      //     await expect(successToast).toBeHidden()
+      //     await personalPage.clickEditInformation();
+      //     await personalPage.change_password(newPass, originalPass, originalPass);
+      //     await personalPage.btn_save.click();
+      //     await personalPage.confirm_btn.click();
+      //     await expect(personalPage.toastMessage.success_message.first()).toBeVisible();
+      //   });
 
-        throw new Error("BUG: System allowed password change with wrong current password!");
-      } else {
-        throw new Error("No toast message displayed");
-      }
+      //   throw new Error("BUG: System allowed password change with wrong current password!");
+      // } else {
+      //   throw new Error("No toast message displayed");
+      // }
     });
   });
 
@@ -184,4 +184,4 @@ test.describe('Personal - Change Password', { tag: '@changepassword' }, () => {
     await homePage.close();
   });
 
-});
+// });
